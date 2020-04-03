@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="ccff096ac256453b92f7f9c266a6d923" Name="Diagram1">
+        <EntityTypeShape EntityType="SondaModel.CitasMedicas" Width="1.5" PointX="3" PointY="3.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="SondaModel.Especialidades" Width="1.5" PointX="0.75" PointY="7.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="SondaModel.EspecialidadMedico" Width="1.5" PointX="3" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SondaModel.Medicos" Width="1.5" PointX="0.75" PointY="3.75" IsExpanded="true" />
+        <AssociationConnector Association="SondaModel.FK__CitasMedi__idEsp__3B75D760" ManuallyRouted="false" />
+        <AssociationConnector Association="SondaModel.FK__CitasMedi__idMed__3C69FB99" ManuallyRouted="false" />
+        <AssociationConnector Association="SondaModel.FK__Especiali__idEsp__3F466844" ManuallyRouted="false" />
+        <AssociationConnector Association="SondaModel.FK__Especiali__idMed__403A8C7D" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

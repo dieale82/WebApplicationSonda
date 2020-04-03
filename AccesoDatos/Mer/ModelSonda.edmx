@@ -1,0 +1,311 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="SondaModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="CitasMedicas">
+          <Key>
+            <PropertyRef Name="idCitaMedica" />
+          </Key>
+          <Property Name="idCitaMedica" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="idMedico" Type="int" Nullable="false" />
+          <Property Name="idEspecialidad" Type="int" Nullable="false" />
+          <Property Name="fechaCitaMedica" Type="date" Nullable="false" />
+          <Property Name="nombrePaciente" Type="varchar" MaxLength="85" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Especialidades">
+          <Key>
+            <PropertyRef Name="idEspecialidad" />
+          </Key>
+          <Property Name="idEspecialidad" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="descEspecialidad" Type="varchar" MaxLength="80" Nullable="false" />
+        </EntityType>
+        <EntityType Name="EspecialidadMedico">
+          <Key>
+            <PropertyRef Name="idEspecialidadMedico" />
+          </Key>
+          <Property Name="idEspecialidadMedico" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="idMedico" Type="int" Nullable="false" />
+          <Property Name="idEspecialidad" Type="int" Nullable="false" />
+          <Property Name="nombreUniversidad" Type="varchar" MaxLength="80" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Medicos">
+          <Key>
+            <PropertyRef Name="idMedico" />
+          </Key>
+          <Property Name="idMedico" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="tipoDocumento" Type="varchar" MaxLength="3" Nullable="false" />
+          <Property Name="numeroDocumento" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="nombreMedico" Type="varchar" MaxLength="85" Nullable="false" />
+        </EntityType>
+        <Association Name="FK__CitasMedi__idEsp__3B75D760">
+          <End Role="Especialidades" Type="Self.Especialidades" Multiplicity="1" />
+          <End Role="CitasMedicas" Type="Self.CitasMedicas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Especialidades">
+              <PropertyRef Name="idEspecialidad" />
+            </Principal>
+            <Dependent Role="CitasMedicas">
+              <PropertyRef Name="idEspecialidad" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__CitasMedi__idMed__3C69FB99">
+          <End Role="Medicos" Type="Self.Medicos" Multiplicity="1" />
+          <End Role="CitasMedicas" Type="Self.CitasMedicas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Medicos">
+              <PropertyRef Name="idMedico" />
+            </Principal>
+            <Dependent Role="CitasMedicas">
+              <PropertyRef Name="idMedico" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Especiali__idEsp__3F466844">
+          <End Role="Especialidades" Type="Self.Especialidades" Multiplicity="1" />
+          <End Role="EspecialidadMedico" Type="Self.EspecialidadMedico" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Especialidades">
+              <PropertyRef Name="idEspecialidad" />
+            </Principal>
+            <Dependent Role="EspecialidadMedico">
+              <PropertyRef Name="idEspecialidad" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Especiali__idMed__403A8C7D">
+          <End Role="Medicos" Type="Self.Medicos" Multiplicity="1" />
+          <End Role="EspecialidadMedico" Type="Self.EspecialidadMedico" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Medicos">
+              <PropertyRef Name="idMedico" />
+            </Principal>
+            <Dependent Role="EspecialidadMedico">
+              <PropertyRef Name="idMedico" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="SP_GuardarCitaMedica" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="idMedico" Type="int" Mode="In" />
+          <Parameter Name="idEspecialidad" Type="int" Mode="In" />
+          <Parameter Name="fechaCitaMedica" Type="date" Mode="In" />
+          <Parameter Name="nombrePaciente" Type="varchar" Mode="In" />
+        </Function>
+        <EntityContainer Name="SondaModelStoreContainer">
+          <EntitySet Name="CitasMedicas" EntityType="Self.CitasMedicas" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Especialidades" EntityType="Self.Especialidades" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="EspecialidadMedico" EntityType="Self.EspecialidadMedico" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Medicos" EntityType="Self.Medicos" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__CitasMedi__idEsp__3B75D760" Association="Self.FK__CitasMedi__idEsp__3B75D760">
+            <End Role="Especialidades" EntitySet="Especialidades" />
+            <End Role="CitasMedicas" EntitySet="CitasMedicas" />
+          </AssociationSet>
+          <AssociationSet Name="FK__CitasMedi__idMed__3C69FB99" Association="Self.FK__CitasMedi__idMed__3C69FB99">
+            <End Role="Medicos" EntitySet="Medicos" />
+            <End Role="CitasMedicas" EntitySet="CitasMedicas" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Especiali__idEsp__3F466844" Association="Self.FK__Especiali__idEsp__3F466844">
+            <End Role="Especialidades" EntitySet="Especialidades" />
+            <End Role="EspecialidadMedico" EntitySet="EspecialidadMedico" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Especiali__idMed__403A8C7D" Association="Self.FK__Especiali__idMed__403A8C7D">
+            <End Role="Medicos" EntitySet="Medicos" />
+            <End Role="EspecialidadMedico" EntitySet="EspecialidadMedico" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="SondaModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="CitasMedicas">
+          <Key>
+            <PropertyRef Name="idCitaMedica" />
+          </Key>
+          <Property Name="idCitaMedica" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="idMedico" Type="Int32" Nullable="false" />
+          <Property Name="idEspecialidad" Type="Int32" Nullable="false" />
+          <Property Name="fechaCitaMedica" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="nombrePaciente" Type="String" MaxLength="85" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Especialidades" Relationship="Self.FK__CitasMedi__idEsp__3B75D760" FromRole="CitasMedicas" ToRole="Especialidades" />
+          <NavigationProperty Name="Medicos" Relationship="Self.FK__CitasMedi__idMed__3C69FB99" FromRole="CitasMedicas" ToRole="Medicos" />
+        </EntityType>
+        <EntityType Name="Especialidades">
+          <Key>
+            <PropertyRef Name="idEspecialidad" />
+          </Key>
+          <Property Name="idEspecialidad" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="descEspecialidad" Type="String" MaxLength="80" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="CitasMedicas" Relationship="Self.FK__CitasMedi__idEsp__3B75D760" FromRole="Especialidades" ToRole="CitasMedicas" />
+          <NavigationProperty Name="EspecialidadMedico" Relationship="Self.FK__Especiali__idEsp__3F466844" FromRole="Especialidades" ToRole="EspecialidadMedico" />
+        </EntityType>
+        <EntityType Name="EspecialidadMedico">
+          <Key>
+            <PropertyRef Name="idEspecialidadMedico" />
+          </Key>
+          <Property Name="idEspecialidadMedico" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="idMedico" Type="Int32" Nullable="false" />
+          <Property Name="idEspecialidad" Type="Int32" Nullable="false" />
+          <Property Name="nombreUniversidad" Type="String" MaxLength="80" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Especialidades" Relationship="Self.FK__Especiali__idEsp__3F466844" FromRole="EspecialidadMedico" ToRole="Especialidades" />
+          <NavigationProperty Name="Medicos" Relationship="Self.FK__Especiali__idMed__403A8C7D" FromRole="EspecialidadMedico" ToRole="Medicos" />
+        </EntityType>
+        <EntityType Name="Medicos">
+          <Key>
+            <PropertyRef Name="idMedico" />
+          </Key>
+          <Property Name="idMedico" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="tipoDocumento" Type="String" MaxLength="3" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="numeroDocumento" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="nombreMedico" Type="String" MaxLength="85" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="CitasMedicas" Relationship="Self.FK__CitasMedi__idMed__3C69FB99" FromRole="Medicos" ToRole="CitasMedicas" />
+          <NavigationProperty Name="EspecialidadMedico" Relationship="Self.FK__Especiali__idMed__403A8C7D" FromRole="Medicos" ToRole="EspecialidadMedico" />
+        </EntityType>
+        <Association Name="FK__CitasMedi__idEsp__3B75D760">
+          <End Role="Especialidades" Type="Self.Especialidades" Multiplicity="1" />
+          <End Role="CitasMedicas" Type="Self.CitasMedicas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Especialidades">
+              <PropertyRef Name="idEspecialidad" />
+            </Principal>
+            <Dependent Role="CitasMedicas">
+              <PropertyRef Name="idEspecialidad" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__CitasMedi__idMed__3C69FB99">
+          <End Role="Medicos" Type="Self.Medicos" Multiplicity="1" />
+          <End Role="CitasMedicas" Type="Self.CitasMedicas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Medicos">
+              <PropertyRef Name="idMedico" />
+            </Principal>
+            <Dependent Role="CitasMedicas">
+              <PropertyRef Name="idMedico" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Especiali__idEsp__3F466844">
+          <End Role="Especialidades" Type="Self.Especialidades" Multiplicity="1" />
+          <End Role="EspecialidadMedico" Type="Self.EspecialidadMedico" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Especialidades">
+              <PropertyRef Name="idEspecialidad" />
+            </Principal>
+            <Dependent Role="EspecialidadMedico">
+              <PropertyRef Name="idEspecialidad" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Especiali__idMed__403A8C7D">
+          <End Role="Medicos" Type="Self.Medicos" Multiplicity="1" />
+          <End Role="EspecialidadMedico" Type="Self.EspecialidadMedico" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Medicos">
+              <PropertyRef Name="idMedico" />
+            </Principal>
+            <Dependent Role="EspecialidadMedico">
+              <PropertyRef Name="idMedico" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="SondaEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="CitasMedicas" EntityType="Self.CitasMedicas" />
+          <EntitySet Name="Especialidades" EntityType="Self.Especialidades" />
+          <EntitySet Name="EspecialidadMedico" EntityType="Self.EspecialidadMedico" />
+          <EntitySet Name="Medicos" EntityType="Self.Medicos" />
+          <AssociationSet Name="FK__CitasMedi__idEsp__3B75D760" Association="Self.FK__CitasMedi__idEsp__3B75D760">
+            <End Role="Especialidades" EntitySet="Especialidades" />
+            <End Role="CitasMedicas" EntitySet="CitasMedicas" />
+          </AssociationSet>
+          <AssociationSet Name="FK__CitasMedi__idMed__3C69FB99" Association="Self.FK__CitasMedi__idMed__3C69FB99">
+            <End Role="Medicos" EntitySet="Medicos" />
+            <End Role="CitasMedicas" EntitySet="CitasMedicas" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Especiali__idEsp__3F466844" Association="Self.FK__Especiali__idEsp__3F466844">
+            <End Role="Especialidades" EntitySet="Especialidades" />
+            <End Role="EspecialidadMedico" EntitySet="EspecialidadMedico" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Especiali__idMed__403A8C7D" Association="Self.FK__Especiali__idMed__403A8C7D">
+            <End Role="Medicos" EntitySet="Medicos" />
+            <End Role="EspecialidadMedico" EntitySet="EspecialidadMedico" />
+          </AssociationSet>
+          <FunctionImport Name="SP_GuardarCitaMedica" ReturnType="Collection(Int32)">
+            <Parameter Name="idMedico" Mode="In" Type="Int32" />
+            <Parameter Name="idEspecialidad" Mode="In" Type="Int32" />
+            <Parameter Name="fechaCitaMedica" Mode="In" Type="DateTime" />
+            <Parameter Name="nombrePaciente" Mode="In" Type="String" />
+          </FunctionImport>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="SondaModelStoreContainer" CdmEntityContainer="SondaEntities">
+          <EntitySetMapping Name="CitasMedicas">
+            <EntityTypeMapping TypeName="SondaModel.CitasMedicas">
+              <MappingFragment StoreEntitySet="CitasMedicas">
+                <ScalarProperty Name="idCitaMedica" ColumnName="idCitaMedica" />
+                <ScalarProperty Name="idMedico" ColumnName="idMedico" />
+                <ScalarProperty Name="idEspecialidad" ColumnName="idEspecialidad" />
+                <ScalarProperty Name="fechaCitaMedica" ColumnName="fechaCitaMedica" />
+                <ScalarProperty Name="nombrePaciente" ColumnName="nombrePaciente" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Especialidades">
+            <EntityTypeMapping TypeName="SondaModel.Especialidades">
+              <MappingFragment StoreEntitySet="Especialidades">
+                <ScalarProperty Name="idEspecialidad" ColumnName="idEspecialidad" />
+                <ScalarProperty Name="descEspecialidad" ColumnName="descEspecialidad" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="EspecialidadMedico">
+            <EntityTypeMapping TypeName="SondaModel.EspecialidadMedico">
+              <MappingFragment StoreEntitySet="EspecialidadMedico">
+                <ScalarProperty Name="idEspecialidadMedico" ColumnName="idEspecialidadMedico" />
+                <ScalarProperty Name="idMedico" ColumnName="idMedico" />
+                <ScalarProperty Name="idEspecialidad" ColumnName="idEspecialidad" />
+                <ScalarProperty Name="nombreUniversidad" ColumnName="nombreUniversidad" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Medicos">
+            <EntityTypeMapping TypeName="SondaModel.Medicos">
+              <MappingFragment StoreEntitySet="Medicos">
+                <ScalarProperty Name="idMedico" ColumnName="idMedico" />
+                <ScalarProperty Name="tipoDocumento" ColumnName="tipoDocumento" />
+                <ScalarProperty Name="numeroDocumento" ColumnName="numeroDocumento" />
+                <ScalarProperty Name="nombreMedico" ColumnName="nombreMedico" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="SP_GuardarCitaMedica" FunctionName="SondaModel.Store.SP_GuardarCitaMedica" />
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Ninguno" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
